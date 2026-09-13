@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>my babii.exe</title>
+<style>
+:root{
+  --bg:#f7f3fb;--white:#fffdfd;--ink:#292532;--muted:#777080;
+  --lav:#dcd1ee;--pink:#f0d4df;--blue:#d7e5f2;--line:#e6deea;
+  --shadow:0 18px 50px rgba(55,40,70,.10)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(220,209,238,.55),transparent 28%),
+    radial-gradient(circle at 90% 20%,rgba(240,212,223,.55),transparent 25%),
+    var(--bg)
+}
+button{font:inherit}
+#cover{
+  min-height:100vh;display:grid;place-items:center;padding:25px;
+  position:relative;overflow:hidden
+}
+.orb{position:absolute;border-radius:50%;opacity:.7;animation:float 7s ease-in-out infinite}
+.o1{width:190px;height:190px;background:var(--pink);left:8%;top:14%}
+.o2{width:230px;height:230px;background:var(--lav);right:5%;bottom:10%;animation-delay:1.4s}
+.o3{width:110px;height:110px;background:var(--blue);right:25%;top:12%;animation-delay:2.2s}
+@keyframes float{50%{transform:translateY(-18px) rotate(5deg)}}
+.cover-card{
+  width:min(680px,100%);padding:52px 38px;text-align:center;
+  background:rgba(255,253,253,.82);border:1px solid white;border-radius:34px;
+  box-shadow:var(--shadow);backdrop-filter:blur(16px);position:relative;z-index:2
+}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cover-card h1{font-size:clamp(42px,8vw,78px);line-height:.95;margin:16px 0 12px;letter-spacing:-.06em}
+.cover-card p{color:var(--muted);line-height:1.7;max-width:480px;margin:8px auto}
+.meta{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:24px 0}
+.pill{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:white;font-size:12px}
+.primary{
+  border:0;background:var(--ink);color:white;padding:14px 20px;border-radius:16px;
+  cursor:pointer;transition:.2s
+}
+.primary:hover{transform:translateY(-2px)}
+#app{display:none}
+.topbar{
+  position:sticky;top:0;z-index:20;background:rgba(247,243,251,.84);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 18px
+}
+.nav{max-width:1080px;margin:auto;display:flex;align-items:center;gap:14px}
+.logo{font-weight:800;white-space:nowrap}
+.progress{height:7px;background:#eee8f1;border-radius:99px;flex:1;overflow:hidden}
+.progress i{display:block;height:100%;width:10%;background:linear-gradient(90deg,var(--lav),var(--pink));transition:.4s}
+.menu-btn{
+  border:1px solid var(--line);background:white;border-radius:12px;
+  padding:8px 10px;cursor:pointer
+}
+.menu{
+  display:none;position:absolute;right:18px;top:60px;background:white;
+  border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+  padding:8px;width:230px
+}
+.menu.open{display:block}
+.menu button{
+  display:block;width:100%;text-align:left;border:0;background:transparent;
+  padding:11px 12px;border-radius:11px;cursor:pointer
+}
+.menu button:hover{background:var(--bg)}
+main{max-width:1000px;margin:auto;padding:50px 20px 90px}
+.section{
+  min-height:82vh;display:flex;align-items:center;padding:55px 0;
+  scroll-margin-top:70px
+}
+.panel{
+  width:100%;background:rgba(255,253,253,.92);border:1px solid var(--line);
+  border-radius:26px;box-shadow:var(--shadow);
+  padding:clamp(25px,5vw,52px);position:relative;overflow:hidden
+}
+.number{font-size:12px;color:var(--muted);letter-spacing:.15em}
+h2{font-size:clamp(34px,6vw,64px);line-height:1.02;letter-spacing:-.055em;margin:13px 0 18px}
+h3{margin:0 0 9px;font-size:20px}
+p{line-height:1.78}
+.lead{font-size:18px;color:#5d5663;max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:25px}
+.card{
+  border:1px solid var(--line);background:white;border-radius:20px;padding:20px;
+  transition:.22s
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(55,40,70,.08)}
+.tiny{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.stat{font-size:28px;font-weight:800;margin-top:7px}
+.accent-lav{background:linear-gradient(135deg,#fff,var(--lav))}
+.accent-pink{background:linear-gradient(135deg,#fff,var(--pink))}
+.accent-blue{background:linear-gradient(135deg,#fff,var(--blue))}
+.step{display:grid;grid-template-columns:54px 1fr;gap:15px;padding:18px 0;border-bottom:1px dashed var(--line)}
+.step:last-child{border-bottom:0}
+.stepno{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--ink);color:white;font-size:13px}
+.warning{border:1px solid #e5d8c2;background:#fff9ee;border-radius:20px;padding:20px;margin-top:22px}
+.warning strong{display:block;margin-bottom:7px}
+.quote{font-size:clamp(25px,4vw,43px);line-height:1.2;letter-spacing:-.035em;margin:30px 0}
+.timeline{display:grid;gap:12px;margin-top:24px}
+.update{display:grid;grid-template-columns:120px 1fr;gap:15px}
+.tag{font-size:12px;font-weight:800;color:var(--muted)}
+details{border:1px solid var(--line);border-radius:18px;padding:15px 17px;background:white}
+summary{cursor:pointer;font-weight:700}
+.final{text-align:center}
+.footer-note{color:var(--muted);font-size:13px;margin-top:30px}
+.reveal{opacity:0;transform:translateY(18px);transition:.7s}
+.reveal.show{opacity:1;transform:none}
+.music-player{
+  position:fixed;right:18px;bottom:18px;z-index:50
+}
+.music-player button{
+  border:1px solid var(--line);background:rgba(255,255,255,.92);
+  color:var(--ink);padding:10px 14px;border-radius:14px;cursor:pointer;
+  box-shadow:0 8px 25px rgba(55,40,70,.10);backdrop-filter:blur(10px);
+  transition:.2s
+}
+.music-player button:hover{transform:translateY(-2px)}
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+  .section{min-height:auto;padding:32px 0}
+  .panel{padding:25px 20px}
+  .update{grid-template-columns:1fr}
+  .cover-card{padding:40px 24px}
+}
+</style>
+</head>
+
+<body>
+
+<section id="cover">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+
+  <div class="cover-card reveal show">
+    <div class="eyebrow">personal user manual / version: still learning you</div>
+    <h1>my babii :></h1>
+    <p>an unnecessarily detailed little guide to someone i somehow ended up noticing way too much hehe</p>
+
+    <div class="meta">
+      <span class="pill">status: loved</span>
+      <span class="pill">makulit level: high</span>
+      <span class="pill">random chika: unlimited</span>
+      <span class="pill">manual: incomplete</span>
+    </div>
+
+    <button class="primary" onclick="openApp()">open manual hehe</button>
+  </div>
+</section>
+
+<div id="app">
+
+<header class="topbar">
+  <div class="nav">
+    <div class="logo">babii.exe</div>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="menu-btn" onclick="toggleMenu()">menu</button>
+
+    <div id="menu" class="menu">
+      <button onclick="go(0)">01 · introduction</button>
+      <button onclick="go(1)">02 · basic info</button>
+      <button onclick="go(2)">03 · things i notice</button>
+      <button onclick="go(3)">04 · how to love you</button>
+      <button onclick="go(4)">05 · warning</button>
+      <button onclick="go(5)">06 · through my eyes</button>
+      <button onclick="go(6)">07 · things i'd save</button>
+      <button onclick="go(7)">08 · troubleshooting</button>
+      <button onclick="go(8)">09 · update log</button>
+      <button onclick="go(9)">10 · final message</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">01 / system introduction</div>
+<h2>if you could see yourself through my eyes for one day</h2>
+<p class="lead">i wonder if you'd finally understand why i notice so many little things about you</p>
+<p>kasi minsan babii, i think you don't even realize how much of you i actually pay attention to :> not in a scary way ha HAHAHA, more like yung mga small things na probably normal lang sayo pero somehow nagiging memorable sakin</p>
+<p>yung way mo magsalita, yung random chika mo, yung moments na biglang tahimik ka, yung little efforts mo, yung mga bagay na naaalala mo, pati yung mga simpleng “hehe” mo minsan, somehow napapansin ko</p>
+<p>kaya ginawa ko 'to kasi baka sakaling makita mo kahit konti yung version of you na nakikita ko</p>
+<p>and spoiler alert po, i like that version very very much hehe</p>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">02 / basic information</div>
+<h2>meet my favorite little problem</h2>
+<p class="lead">a completely scientific profile of the girl who somehow became one of my favorite parts of every day</p>
+<div class="grid">
+<div class="card accent-lav"><div class="tiny">primary function</div><div class="stat">make me smile</div><p>apparently works even when you are not trying</p></div>
+<div class="card accent-pink"><div class="tiny">chika storage</div><div class="stat">unlimited</div><p>please continue sending random stories, i actually like hearing them :></p></div>
+<div class="card accent-blue"><div class="tiny">makulit level</div><div class="stat">dangerous</div><p>side effects include me becoming even more makulit back</p></div>
+<div class="card"><div class="tiny">importance</div><div class="stat">too much hehe</div><p>cannot be represented by a normal number, the calculator gave up</p></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">03 / observation log</div>
+<h2>things you probably don't realize i notice</h2>
+<p class="lead">this is where the manual gets suspiciously specific T~T</p>
+<div class="grid">
+<div class="card"><h3>when your energy changes</h3><p>kahit hindi mo sabihin directly, minsan napapansin ko kapag iba yung way mo magreply or kapag mas tahimik ka than usual</p></div>
+<div class="card"><h3>your random stories</h3><p>you might think they're just random chika, pero i genuinely like hearing about the little things that happened to you that day</p></div>
+<div class="card"><h3>the tiny things you remember</h3><p>kapag naaalala mo yung mga bagay na gusto ko or ayaw ko, kahit maliit lang, i notice that more than you probably think</p></div>
+<div class="card"><h3>when you try</h3><p>sometimes you might think “small thing lang naman,” pero effort is effort babii, and i don't want your little efforts to go unnoticed</p></div>
+<div class="card"><h3>your quiet side</h3><p>i don't always need you to explain everything. sometimes i just want you to know na i'm here, and i'll listen kapag ready ka</p></div>
+<div class="card"><h3>the way you make ordinary moments special</h3><p>sometimes nothing big even happens, pero because it's you, the moment still ends up meaning something to me</p></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">04 / operating instructions</div>
+<h2>how to love my babii properly</h2>
+<p class="lead">please read carefully, although the manual is still being updated hehe</p>
+<div>
+<div class="step"><div class="stepno">01</div><div><h3>listen to the random chika</h3><p>kahit gaano ka-random, go lang po. i actually like knowing the little parts of your day</p></div></div>
+<div class="step"><div class="stepno">02</div><div><h3>don't underestimate little efforts</h3><p>you don't have to do something huge for me to appreciate you. minsan yung simple things pa yung tumatatak</p></div></div>
+<div class="step"><div class="stepno">03</div><div><h3>don't force the vulnerable parts</h3><p>you don't have to tell me everything immediately. i would rather wait and make you feel safe than pressure you to talk</p></div></div>
+<div class="step"><div class="stepno">04</div><div><h3>keep being makulit</h3><p>very important instruction po. do not remove this feature. i like your silly side HAHAHA</p></div></div>
+<div class="step"><div class="stepno">05</div><div><h3>choose gentleness</h3><p>especially on the days when either of us is tired, confused, or not having the best day</p></div></div>
+<div class="step"><div class="stepno">06</div><div><h3>keep choosing us</h3><p>not because everything will always be easy, but because i want us to learn how to understand, fix, and grow together</p></div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">05 / important warning</div>
+<h2>she may not realize how lovely she is</h2>
+<div class="warning"><strong>WARNING: subject may underestimate herself</strong><p>if detected, do not simply agree with her doubts HAHAHA. remind her of the things she does right, the effort she makes, and the little ways she matters to people around her</p></div>
+<div class="grid">
+<div class="card"><div class="tiny">possible side effect</div><h3>random smiling</h3><p>may happen when she says something unexpectedly cute</p></div>
+<div class="card"><div class="tiny">possible side effect</div><h3>missing her</h3><p>especially after a really good conversation :<</p></div>
+<div class="card"><div class="tiny">possible side effect</div><h3>remembering tiny details</h3><p>somehow my brain decides these are important information</p></div>
+<div class="card"><div class="tiny">possible side effect</div><h3>getting extra soft</h3><p>unfortunately there is no known cure, i've accepted it already</p></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">06 / perspective mode</div>
+<h2>if you could see yourself through my eyes</h2>
+<p class="quote">“maybe then you'd understand why i don't need you to be perfect for me to appreciate you”</p>
+<p>babii, if you could borrow my eyes for even a little while, i hope you'd notice what i notice</p>
+<p>i see the happy you, the makulit you, the random you, the quiet you, and even the version of you that doesn't always know what to say</p>
+<p>i don't love you only when you're at your best. i appreciate the real you, including the parts that are still figuring things out</p>
+<p>and i hope you know na you don't have to constantly prove that you're worth loving. you don't have to make every day perfect. you don't have to always know the right thing to say</p>
+<p>sometimes just being yourself, telling me your random thoughts, letting me hear your stories, and letting me stay beside you is already something i appreciate</p>
+<p>that's probably one of the biggest reasons why i keep wanting to know you more</p>
+<p>because the more i notice, the more little things i find worth appreciating :></p>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">07 / save file</div>
+<h2>things i'd save about you</h2>
+<p class="lead">not because every moment has to be perfect, but because some ordinary things become special just because they happened with you</p>
+<div class="grid">
+<details><summary>your random chikas</summary><p>the stories that start with something completely normal and somehow become a whole conversation hehe</p></details>
+<details><summary>your little efforts</summary><p>the things you probably think are small but i notice because they show me that you care</p></details>
+<details><summary>your silly moments</summary><p>the moments where you're just being you and i end up smiling at my screen like an idiot</p></details>
+<details><summary>the quiet moments</summary><p>the times when nothing needs to be forced and being there is already enough</p></details>
+<details><summary>the times you let me know you</summary><p>every little story, thought, rant, or random detail you choose to share is something i value</p></details>
+<details><summary>the ordinary days</summary><p>because i don't only want special memories with you. i want to appreciate the normal ones too</p></details>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">08 / troubleshooting</div>
+<h2>if babii is having a bad day...</h2>
+<p class="lead">please don't panic hehe, here's what boyfriend mode usually does</p>
+<div class="grid">
+<div class="card"><h3>if babii is quiet</h3><p>give her space without disappearing. let her know i'm available, then let her come to me when she's ready</p></div>
+<div class="card"><h3>if babii is tired</h3><p>less pressure, more patience. sometimes “rest ka muna po” is better than asking a million questions</p></div>
+<div class="card"><h3>if babii wants to yap</h3><p>listen. no need to make every story productive. sometimes i just want to hear you talk hehe</p></div>
+<div class="card"><h3>if babii is overthinking</h3><p>reassure her without making her feel silly for feeling that way</p></div>
+</div>
+<p>and if i ever mess up too, i hope i can be honest about it, listen, apologize when needed, and do better instead of pretending i didn't make a mistake</p>
+</div>
+</section>
+
+<section class="section">
+<div class="panel reveal">
+<div class="number">09 / update log</div>
+<h2>the manual keeps updating</h2>
+<p class="lead">because apparently one version of you is never enough for me to discover hehe</p>
+<div class="timeline">
+<div class="update"><div class="tag">version 1.0</div><div><h3>i started noticing you</h3><p>at first it was little things, then suddenly i was paying attention to way more than i expected</p></div></div>
+<div class="update"><div class="tag">version 2.0</div><div><h3>your messages became something i looked forward to</h3><p>your random conversations slowly became part of my favorite moments</p></div></div>
+<div class="update"><div class="tag">version 3.0</div><div><h3>i started appreciating the little things</h3><p>the small efforts, the remembering, the little ways you show care</p></div></div>
+<div class="update"><div class="tag">version 4.0</div><div><h3>i realized i wanted to understand you</h3><p>not just the happy parts, but the quiet and vulnerable ones too, at your own pace</p></div></div>
+<div class="update"><div class="tag">current version</div><div><h3>still learning you</h3><p>still listening, still noticing, still choosing to understand you a little better every day</p></div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="panel final reveal">
+<div class="number">10 / manual complete</div>
+<h2>manual incomplete, actually</h2>
+<p class="lead">because i don't think i could ever make a final version of this</p>
+<p>there will always be another little habit i notice, another random story you tell me, another tiny effort you make, another side of you i get to know</p>
+<p>and honestly, i think that's the cute part</p>
+<p>i don't want to reach a point where i feel like i already know everything about you</p>
+<p>i want to keep learning you, slowly, naturally, through the ordinary days and the special ones too</p>
+<p class="quote">“so if you ever forget how i see you, borrow my eyes for a little while :>”</p>
+<p>thank you for letting me know you, babii</p>
+<p>thank you for the yaps, the random moments, the little efforts, the laughs, the quiet days, and everything in between</p>
+<p>i lovee youu babiii :> more than this tiny manual could probably explain hehe</p>
+<div class="footer-note">system status: still choosing us · still learning you · still very much makulit</div>
+</div>
+</section>
+
+</main>
+</div>
+
+<div class="music-player">
+  <button id="musicBtn" onclick="toggleMusic()">play music :></button>
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+const sections=[...document.querySelectorAll(".section")];
+const bar=document.getElementById("bar");
+const menu=document.getElementById("menu");
+const bgMusic=document.getElementById("bgMusic");
+const musicBtn=document.getElementById("musicBtn");
+
+function openApp(){
+  document.getElementById("cover").style.display="none";
+  document.getElementById("app").style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleMenu(){
+  menu.classList.toggle("open");
+}
+
+function go(i){
+  sections[i]?.scrollIntoView({behavior:"smooth"});
+  menu.classList.remove("open");
+}
+
+function toggleMusic(){
+  if(bgMusic.paused){
+    bgMusic.play().then(()=>{
+      musicBtn.textContent="pause music :<";
+    }).catch(()=>{
+      musicBtn.textContent="tap again :>";
+    });
+  }else{
+    bgMusic.pause();
+    musicBtn.textContent="play music :>";
+  }
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)e.target.classList.add("show");
+  });
+},{threshold:.14});
+
+document.querySelectorAll(".reveal").forEach(x=>observer.observe(x));
+
+const sectionObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const i=sections.indexOf(e.target);
+      bar.style.width=((i+1)/sections.length*100)+"%";
+    }
+  });
+},{threshold:.55});
+
+sections.forEach(s=>sectionObserver.observe(s));
+
+document.addEventListener("click",e=>{
+  if(!menu.contains(e.target)&&!e.target.classList.contains("menu-btn")){
+    menu.classList.remove("open");
+  }
+});
+</script>
+
+</body>
+</html>
